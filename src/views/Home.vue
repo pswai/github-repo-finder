@@ -1,30 +1,16 @@
 <template>
   <div class="ui middle aligned center aligned grid container">
-    <div class="six wide column">
-      <form class="ui large form">
-        <div class="field">
-          <label>GitHub Username</label>
-          <input type="text" v-model="user" autofocus />
-        </div>
-        <router-link
-          tag="button"
-          type="submit"
-          class="ui fluid button"
-          :to="{ name: 'repos', params: { user: user } }"
-          >List Repositories!</router-link
-        >
-      </form>
-    </div>
+    <div class="six wide column"><username-input-form /></div>
   </div>
 </template>
 
 <script>
+import UsernameInputForm from "../components/UsernameInputForm";
+
 export default {
   name: "home",
-  data() {
-    return {
-      user: ""
-    };
+  components: {
+    UsernameInputForm
   }
 };
 </script>
