@@ -23,7 +23,18 @@
         <div v-if="isLoading">Loading...</div>
 
         <repo-list v-bind:repos="repos" v-if="repos.length" />
-        <div v-else>No repositories found</div>
+        <div class="ui list" v-else>
+          <div class="item">
+            <div class="header">An error occurred. This can be caused by:</div>
+          </div>
+          <div class="item">
+            User "{{ $route.params.user }}" does not exists
+          </div>
+          <div class="item">
+            User "{{ $route.params.user }}" does not have any repositories
+          </div>
+          <div class="item">Some unforeseen errors</div>
+        </div>
       </div>
       <div class="two wide column paging-col">
         <div class="ui icon buttons">
@@ -51,6 +62,7 @@ export default {
   data() {
     return {
       isLoading: false,
+      errorMessage: "",
       repos: [],
       pagination: {
         page: 1,
@@ -99,7 +111,10 @@ export default {
 
           return resp.json();
         })
-        .then(payload => (this.repos = payload))
+        .then(payload => {
+          this.repos = payload;
+          this.errorMessage = "";
+        })
         .finally(() => {
           this.isLoading = false;
         });
