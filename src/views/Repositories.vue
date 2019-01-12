@@ -1,29 +1,41 @@
 <template>
   <div class="ui middle aligned center aligned grid container">
-    <div class="one wide column paging-col">
-      <button
-        class="ui basic button"
-        v-on:click="goPrevPage"
-        v-bind:class="{ disabled: !hasPrev }"
-      >
-        <i class="chevron left icon"></i>
-      </button>
+    <div class="row">
+      <div class="column">
+        <div class="ui center aligned large header">
+          {{ $route.params.user }}'s repositories
+        </div>
+      </div>
     </div>
-    <div class="six wide column">
-      <div class="ui large header">{{ $route.params.user }}'s repositories</div>
+    <div class="row">
+      <div class="two wide column paging-col">
+        <div class="ui icon buttons">
+          <button
+            class="ui basic button"
+            v-on:click="goPrevPage"
+            v-bind:class="{ disabled: !hasPrev }"
+          >
+            <i class="chevron left icon"></i>
+          </button>
+        </div>
+      </div>
+      <div class="six wide column">
+        <div v-if="isLoading">Loading...</div>
 
-      <div v-if="isLoading">Loading...</div>
-
-      <repo-list v-bind:repos="repos" />
-    </div>
-    <div class="one wide column paging-col">
-      <button
-        class="ui basic button"
-        v-on:click="goNextPage"
-        v-bind:class="{ disabled: !hasNext }"
-      >
-        <i class="chevron right icon"></i>
-      </button>
+        <repo-list v-bind:repos="repos" v-if="repos.length" />
+        <div v-else>No repositories found</div>
+      </div>
+      <div class="two wide column paging-col">
+        <div class="ui icon buttons">
+          <button
+            class="ui basic button"
+            v-on:click="goNextPage"
+            v-bind:class="{ disabled: !hasNext }"
+          >
+            <i class="chevron right icon"></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>

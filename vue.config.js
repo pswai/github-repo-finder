@@ -1,3 +1,4 @@
 module.exports = {
-  publicPath: "/github-repo-finder/"
+  publicPath:
+    process.env.NODE_ENV === "production" ? "/production-sub-path/" : "/"
 };
