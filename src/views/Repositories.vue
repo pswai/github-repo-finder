@@ -22,7 +22,8 @@
       <div class="six wide column">
         <div v-if="isLoading">Loading...</div>
 
-        <repo-list v-bind:repos="repos" v-if="repos.length" />
+        <repo-list v-bind:repos="repos" v-else-if="repos.length" />
+
         <div class="ui list" v-else>
           <div class="item">
             <div class="header">An error occurred. This can be caused by:</div>
