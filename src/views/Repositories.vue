@@ -1,20 +1,20 @@
 <template>
-  <div>
-    {{ $route.params.user }}'s repositories
-    <ul>
-      <li v-for="repo in repos" :key="repo.id">
-        <router-link
-          :to="{ name: 'repoDetails', params: { repoName: repo.name } }"
-          >{{ repo.name }}</router-link
-        >
-      </li>
-    </ul>
+  <div class="ui middle aligned center aligned grid container">
+    <div class="column">
+      <div class="ui large header">{{ $route.params.user }}'s repositories</div>
+      <repo-list v-bind:repos="repos" />
+    </div>
   </div>
 </template>
 
 <script>
+import RepoList from "../components/RepoList";
+
 export default {
   name: "Repositories",
+  components: {
+    RepoList
+  },
   data() {
     return {
       repos: []
