@@ -1,19 +1,28 @@
 <template>
-  <div>
-    {{ $route.params.repoName }}
-    <pre>
-      {{ readme }}
-    </pre>
+  <div class="ui container">
+    <div class="ui center aligned large header">{{ fullRepoName }}</div>
+    <div class="ui segment"><vue-markdown :source="readme" /></div>
   </div>
 </template>
 
 <script>
+import VueMarkdown from "vue-markdown";
+
 export default {
   name: "Repositories",
+  components: {
+    VueMarkdown
+  },
   data() {
     return {
       readme: ""
     };
+  },
+  computed: {
+    fullRepoName() {
+      const { user, repoName } = this.$route.params;
+      return `${user}/${repoName}`;
+    }
   },
   created() {
     this.fetchReadme();
